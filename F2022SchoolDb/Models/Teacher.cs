@@ -13,5 +13,6 @@ namespace F2022SchoolDb.Models
         public string teacherlname;
         public string employeenumber;
         public string hiredate;
+        public int salary;
     }
 }
