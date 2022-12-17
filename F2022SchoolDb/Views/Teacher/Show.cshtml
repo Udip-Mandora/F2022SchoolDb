@@ -3,11 +3,13 @@
     ViewBag.Title = "Show";
 }
 
-<a class="navlink" href="/Teacher/List">Back To Teachers</a>
+<a class="navlink" href="/Teacher/List">Back To Teachers</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="editlink" href="/Teacher/Edit/@Model.teacherid">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a class="dellink" href="/Teacher/deleteConfirm/@Model.teacherid">Delete</a>
 <div id="containershow">
     <h4>@Model.teacherfname</h4> <h4>@Model.teacherlname</h4>
     <p>@Model.employeenumber</p>
     <p>@Model.hiredate</p>
+    <p>@Model.salary</p>
 </div>
 

@@ -57,7 +57,8 @@ namespace F2022SchoolDb.Controllers
                 string TeacherFname = ResultSet["teacherfname"].ToString();
                 string TeacherLname = ResultSet["teacherlname"].ToString();
                 string EmployeeNumber = ResultSet["employeenumber"].ToString();
-                string HireDate = ResultSet["hiredate"].ToString();
+                string HireDate = ResultSet["hiredate"].ToString() ;
+                decimal Salary = Convert.ToDecimal(ResultSet["salary"]);
 
                 Teacher NewTeacher = new Teacher();
                 NewTeacher.teacherid = teacherId;
@@ -65,6 +66,7 @@ namespace F2022SchoolDb.Controllers
                 NewTeacher.teacherlname = TeacherLname;
                 NewTeacher.employeenumber = EmployeeNumber;
                 NewTeacher.hiredate = HireDate;
+                NewTeacher.salary = Salary;
 
                 //Add teachers to the list
                 Teachers.Add(NewTeacher);
@@ -111,12 +113,14 @@ namespace F2022SchoolDb.Controllers
                 string TeacherLname = ResultSet["teacherlname"].ToString();
                 string EmployeeNumber = ResultSet["employeenumber"].ToString();
                 string HireDate = ResultSet["hiredate"].ToString();
+                decimal Salary = Convert.ToDecimal(ResultSet["salary"]);
 
                 NewTeacher.teacherid = teacherId;
                 NewTeacher.teacherfname = TeacherFname;
                 NewTeacher.teacherlname = TeacherLname;
                 NewTeacher.employeenumber = EmployeeNumber;
                 NewTeacher.hiredate = HireDate;
+                NewTeacher.salary = Salary;
             }
 
             return NewTeacher;
@@ -190,6 +194,46 @@ namespace F2022SchoolDb.Controllers
 
             Conn.Close();
 
+        }
+
+
+        /// <summary>
+        /// Update a teacher in the system
+        /// <param name="teacherId">The id of teacher in the system</param>
+        /// <param name="UpdatedTeacher">post content, every column of teacher</param>
+        /// </summary>
+        /// <example>
+        /// api/TeacherData/updateteacher/6</example>
+        /// POST: POST CONTENT / FROM BODY / REQUEST BODY
+        /// {"teacherid":"6","teacherid":"6","teacherid":"6","teacherid":"6","teacherid":"6","teacherid":"6"}
+
+        [HttpPost]
+        public void UpdateTeacher(int teacherid, [FromBody]Teacher UpdatedTeacher) 
+        {
+            Debug.WriteLine("Updating teaacher with an id of" + teacherid);
+            Debug.WriteLine("Post CONTENT");
+            Debug.WriteLine(UpdatedTeacher.teacherfname);
+            Debug.WriteLine(UpdatedTeacher.teacherlname);
+
+            string query = "update teachers set teacherFname=@teacherFname, teacherLname=@teacherLName, employeenumber=@employeenumber, hiredate=@hiredate, salary=@salary where teacherid=@teacherid";
+
+            MySqlConnection Conn = School.AccessDatabase();
+
+            Conn.Open();
+
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            cmd.CommandText = query;
+            cmd.Parameters.AddWithValue("@teacherid", teacherid);
+            cmd.Parameters.AddWithValue("@teacherFname", UpdatedTeacher.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherLname", UpdatedTeacher.teacherlname);
+            cmd.Parameters.AddWithValue("@employeenumber", UpdatedTeacher.employeenumber);
+            cmd.Parameters.AddWithValue("@hiredate", UpdatedTeacher.hiredate);
+            cmd.Parameters.AddWithValue("@salary", UpdatedTeacher.salary);
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
         }
     }
 }

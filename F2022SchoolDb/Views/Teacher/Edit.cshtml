@@ -1,0 +1,45 @@
+﻿@model F2022SchoolDb.Models.Teacher
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Teacher</h2>
+
+<form method="post" action="/Teacher/Update/@Model.teacherid">
+
+    <div>
+        <label>Teacher Id:</label>
+        <input type="number" value="@Model.teacherid" name="teacherid" />
+    </div>
+
+    <div>
+        <label>Teacher First Name:</label>
+        <input type="text" value="@Model.teacherfname" name="teacherFname" />
+    </div>
+
+    <div>
+        <label>Teacher Last Name:</label>
+        <input type="text" value="@Model.teacherlname" name="teacherLname"/>
+    </div>
+
+    <div>
+        <label>Employee Number:</label>
+        <input type="text" value="@Model.employeenumber" name="employeenumber"/>
+    </div>
+
+    <div>
+        <label>Hire Date:</label>
+        <input type="date" value="@Model.hiredate" name="hiredate" />
+    </div>
+
+    <div>
+        <label>Salary:</label>
+        <input type="number" value="@Model.salary" name="salary"/>
+    </div>
+
+    <div>
+        <input type="Submit" value="Edit" />
+    </div>
+</form>

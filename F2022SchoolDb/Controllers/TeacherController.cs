@@ -92,5 +92,39 @@ namespace F2022SchoolDb.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
+            return View(SelectedTeacher);
+        }
+
+        [HttpPost]
+        public ActionResult Update(int teacherid, string teacherFname, string teacherLname, string employeenumber, string hiredate, decimal salary)
+        {
+            Debug.WriteLine("Receiving Information about Teacher");
+            Debug.WriteLine(teacherid);
+            Debug.WriteLine(teacherFname);
+            Debug.WriteLine(teacherLname);
+            Debug.WriteLine(employeenumber);
+            Debug.WriteLine(hiredate);
+            Debug.WriteLine(salary);
+
+            Teacher UpdatedTeacher = new Teacher();
+
+            UpdatedTeacher.teacherfname = teacherFname;
+            UpdatedTeacher.teacherlname = teacherLname;
+            UpdatedTeacher.employeenumber = employeenumber;
+            UpdatedTeacher.hiredate = hiredate;
+            UpdatedTeacher.salary = salary;
+
+            TeacherDataController controller = new TeacherDataController();
+
+            controller.UpdateTeacher(teacherid, UpdatedTeacher);
+
+            return RedirectToAction("Show/"+teacherid);
+        }
     }
 }
